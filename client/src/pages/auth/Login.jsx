@@ -46,11 +46,11 @@ export default function Login() {
 }
 
 const styles = {
-  container: { display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#f5f6fa' },
-  card:      { background: '#fff', padding: '2rem', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', width: '360px' },
-  title:     { marginBottom: '1.5rem', textAlign: 'center' },
-  input:     { width: '100%', padding: '0.75rem', marginBottom: '1rem', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' },
-  button:    { width: '100%', padding: '0.75rem', background: '#4f46e5', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '16px' },
-  error:     { color: 'red', marginBottom: '1rem', fontSize: '14px' },
-  link:      { textAlign: 'center', marginTop: '1rem', fontSize: '14px' }
+  container: { display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#f5f6fa', padding: '1rem' },
+  card:      { background: '#fff', padding: '2rem', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', width: '380px', maxWidth: '100%' },
+  title:     { marginBottom: '1.5rem', textAlign: 'center', fontSize: '28px', fontWeight: '600' },
+  input:     { width: '100%', padding: '0.85rem', marginBottom: '1rem', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' },
+  button:    { width: '100%', padding: '0.85rem', background: '#4f46e5', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '16px', fontWeight: '600' },
+  error:     { color: 'red', marginBottom: '1rem', fontSize: '15px' },
+  link:      { textAlign: 'center', marginTop: '1rem', fontSize: '15px' }
 };
