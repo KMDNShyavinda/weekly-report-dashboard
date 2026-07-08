@@ -41,14 +41,14 @@ export default function Register() {
         <h2 style={{ ...styles.title, color: T.text }}>Create Account</h2>
         {error && <p style={styles.error}>{error}</p>}
         <form onSubmit={handleSubmit}>
-          <input  style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="name"     type="text"     placeholder="Full Name" value={form.name}     onChange={handleChange} required />
-          <input  style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="email"    type="email"    placeholder="Email"     value={form.email}    onChange={handleChange} required />
-          <input  style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="password" type="password" placeholder="Password"  value={form.password} onChange={handleChange} required />
-          <select style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="role" value={form.role} onChange={handleChange}>
+          <input  className="form-field" style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="name"     type="text"     placeholder="Full Name" value={form.name}     onChange={handleChange} required />
+          <input  className="form-field" style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="email"    type="email"    placeholder="Email"     value={form.email}    onChange={handleChange} required />
+          <input  className="form-field" style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="password" type="password" placeholder="Password"  value={form.password} onChange={handleChange} required />
+          <select className="form-field" style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="role" value={form.role} onChange={handleChange}>
             <option value="member">Team Member</option>
             <option value="manager">Manager</option>
           </select>
-          <button style={{ ...styles.button, background: T.primary }} type="submit" disabled={loading}>
+          <button className="animated-button" style={{ ...styles.button, background: T.primary }} type="submit" disabled={loading}>
             {loading ? 'Registering...' : 'Register'}
           </button>
         </form>

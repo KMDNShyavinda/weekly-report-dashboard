@@ -50,8 +50,8 @@ export default function Projects() {
         {error && <p style={{ ...styles.error, color: T.danger }}>{error}</p>}
         <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} placeholder="Project name" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required />
         <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} placeholder="Description (optional)" value={form.description} onChange={e => setForm({...form, description: e.target.value})} />
-        <button style={{ ...styles.btn, background: T.primary }} type="submit">{editId ? 'Update' : 'Add Project'}</button>
-        {editId && <button style={{ ...styles.cancelBtn, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="button" onClick={() => { setEditId(null); setForm({ name: '', description: '' }); }}>Cancel</button>}
+        <button className="animated-button" style={{ ...styles.btn, background: T.primary }} type="submit">{editId ? 'Update' : 'Add Project'}</button>
+        {editId && <button className="animated-button" style={{ ...styles.cancelBtn, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="button" onClick={() => { setEditId(null); setForm({ name: '', description: '' }); }}>Cancel</button>}
       </form>
 
       <div style={styles.list}>
@@ -59,8 +59,8 @@ export default function Projects() {
           <div key={p._id} style={{ ...styles.item, background: T.surface, boxShadow: T.shadowMd, border: `1px solid ${T.border}` }}>
             <div><strong style={{ color: T.text }}>{p.name}</strong><p style={{ fontSize: '13px', color: T.muted }}>{p.description}</p></div>
             <div>
-              <button style={{ ...styles.editBtn, background: T.primarySoft || T.surface2, color: T.primary }}   onClick={() => handleEdit(p)}>Edit</button>
-              <button style={{ ...styles.deleteBtn, background: `${T.danger}20`, color: T.danger }} onClick={() => handleDelete(p._id)}>Delete</button>
+              <button className="animated-button" style={{ ...styles.editBtn, background: T.primarySoft || T.surface2, color: T.primary }}   onClick={() => handleEdit(p)}>Edit</button>
+              <button className="animated-button" style={{ ...styles.deleteBtn, background: `${T.danger}20`, color: T.danger }} onClick={() => handleDelete(p._id)}>Delete</button>
             </div>
           </div>
         ))}

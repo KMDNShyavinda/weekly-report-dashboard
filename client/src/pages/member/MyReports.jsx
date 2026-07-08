@@ -32,8 +32,8 @@ export default function MyReports() {
       <div style={{ ...styles.header, color: T.text }}>
         <h2 style={{ color: T.text }}>My Reports — {user?.name}</h2>
         <div>
-          <Link to="/reports/new" style={{ ...styles.btnPrimary, background: T.primary }}>+ New Report</Link>
-          <button onClick={logout} style={{ ...styles.btnSecondary, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }}>Logout</button>
+          <Link className="animated-link" to="/reports/new" style={{ ...styles.btnPrimary, background: T.primary }}>+ New Report</Link>
+          <button className="animated-button" onClick={logout} style={{ ...styles.btnSecondary, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }}>Logout</button>
         </div>
       </div>
 
@@ -54,9 +54,9 @@ export default function MyReports() {
                 <td><span style={{ ...styles.badge, background: statusColor[r.status] }}>{r.status}</span></td>
                 <td style={{ color: T.text }}>{r.hoursWorked || '—'}</td>
                 <td>
-                  <Link to={`/reports/edit/${r._id}`} style={{ marginRight: '0.5rem', color: T.primary }}>Edit</Link>
+                  <Link className="animated-link" to={`/reports/edit/${r._id}`} style={{ marginRight: '0.5rem', color: T.primary }}>Edit</Link>
                   {r.status === 'draft' && (
-                    <button onClick={() => handleSubmit(r._id)} style={{ ...styles.submitBtn, background: T.success }}>Submit</button>
+                    <button className="animated-button" onClick={() => handleSubmit(r._id)} style={{ ...styles.submitBtn, background: T.success }}>Submit</button>
                   )}
                 </td>
               </tr>

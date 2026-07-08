@@ -6,6 +6,7 @@ export default function ThemeSwitcher() {
 
   return (
     <button
+      className="animated-button"
       onClick={toggle}
       style={{
         border: '1px solid rgba(148, 163, 184, 0.35)',

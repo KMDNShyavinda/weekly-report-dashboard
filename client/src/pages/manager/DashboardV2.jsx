@@ -144,6 +144,7 @@ export default function DashboardV2() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', flexWrap: 'wrap' }}>
             <button
+              className="animated-button"
               onClick={toggle}
               style={{
                 border: `1px solid ${theme.border}`,
@@ -157,13 +158,13 @@ export default function DashboardV2() {
             >
               {dark ? '☀️ Light' : '🌙 Dark'}
             </button>
-            <Link to="/team-reports" style={{ border: `1px solid ${theme.border}`, background: theme.surface, color: theme.text, borderRadius: '999px', padding: '0.65rem 0.95rem', boxShadow: theme.shadow }}>
+            <Link className="animated-link" to="/team-reports" style={{ border: `1px solid ${theme.border}`, background: theme.surface, color: theme.text, borderRadius: '999px', padding: '0.65rem 0.95rem', boxShadow: theme.shadow }}>
               Team Reports
             </Link>
-            <Link to="/projects" style={{ border: `1px solid ${theme.border}`, background: theme.surface, color: theme.text, borderRadius: '999px', padding: '0.65rem 0.95rem', boxShadow: theme.shadow }}>
+            <Link className="animated-link" to="/projects" style={{ border: `1px solid ${theme.border}`, background: theme.surface, color: theme.text, borderRadius: '999px', padding: '0.65rem 0.95rem', boxShadow: theme.shadow }}>
               Projects
             </Link>
-            <button onClick={logout} style={{ border: 'none', background: theme.gradient, color: '#fff', borderRadius: '999px', padding: '0.65rem 0.95rem', cursor: 'pointer', boxShadow: theme.shadow }}>
+            <button className="animated-button" onClick={logout} style={{ border: 'none', background: theme.gradient, color: '#fff', borderRadius: '999px', padding: '0.65rem 0.95rem', cursor: 'pointer', boxShadow: theme.shadow }}>
               Logout
             </button>
           </div>
@@ -181,7 +182,7 @@ export default function DashboardV2() {
         </div>
 
         <div style={{ marginTop: '1.5rem', display: 'grid', gap: '1rem' }}>
-          <section className="dashboard-card" style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: '24px', padding: '1.25rem', boxShadow: theme.shadow }}>
+          <section className="dashboard-card chart-shell" style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: '24px', padding: '1.25rem', boxShadow: theme.shadow }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem', gap: '1rem', flexWrap: 'wrap' }}>
               <div>
                 <h3 style={{ fontSize: '1.05rem', fontWeight: 700 }}>Submission trend</h3>
@@ -205,7 +206,7 @@ export default function DashboardV2() {
           </section>
 
           <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-            <section className="dashboard-card" style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: '24px', padding: '1.25rem', boxShadow: theme.shadow }}>
+            <section className="dashboard-card chart-shell" style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: '24px', padding: '1.25rem', boxShadow: theme.shadow }}>
               <div style={{ marginBottom: '0.9rem' }}>
                 <h3 style={{ fontSize: '1.05rem', fontWeight: 700 }}>Submission status</h3>
                 <p style={{ color: theme.muted, fontSize: '0.92rem' }}>Each team member’s current report state.</p>
@@ -223,7 +224,7 @@ export default function DashboardV2() {
               </div>
             </section>
 
-            <section className="dashboard-card" style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: '24px', padding: '1.25rem', boxShadow: theme.shadow }}>
+            <section className="dashboard-card chart-shell" style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: '24px', padding: '1.25rem', boxShadow: theme.shadow }}>
               <div style={{ marginBottom: '0.9rem' }}>
                 <h3 style={{ fontSize: '1.05rem', fontWeight: 700 }}>Project workload</h3>
                 <p style={{ color: theme.muted, fontSize: '0.92rem' }}>Distribution across active projects.</p>

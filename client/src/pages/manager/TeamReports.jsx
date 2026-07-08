@@ -43,7 +43,7 @@ export default function TeamReports() {
         </select>
         <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="date" value={filters.startDate} onChange={e => setFilters({...filters, startDate: e.target.value})} placeholder="Start Date" />
         <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="date" value={filters.endDate}   onChange={e => setFilters({...filters, endDate:   e.target.value})} placeholder="End Date" />
-        <button style={{ ...styles.btn, background: T.primary }} onClick={fetchReports}>Filter</button>
+        <button className="animated-button" style={{ ...styles.btn, background: T.primary }} onClick={fetchReports}>Filter</button>
       </div>
 
       {loading ? <p style={{ color: T.muted }}>Loading...</p> : (

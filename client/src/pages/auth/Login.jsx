@@ -41,9 +41,9 @@ export default function Login() {
         <h2 style={{ ...styles.title, color: T.text }}>Login</h2>
         {error && <p style={styles.error}>{error}</p>}
         <form onSubmit={handleSubmit}>
-          <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="email"    type="email"    placeholder="Email"    value={form.email}    onChange={handleChange} required />
-          <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
-          <button style={{ ...styles.button, background: T.primary }} type="submit" disabled={loading}>
+          <input className="form-field" style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="email"    type="email"    placeholder="Email"    value={form.email}    onChange={handleChange} required />
+          <input className="form-field" style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
+          <button className="animated-button" style={{ ...styles.button, background: T.primary }} type="submit" disabled={loading}>
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>

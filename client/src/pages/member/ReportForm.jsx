@@ -59,37 +59,37 @@ export default function ReportForm() {
       {error && <p style={{ ...styles.error, color: T.danger }}>{error}</p>}
       <form onSubmit={handleSubmit} style={{ ...styles.form, background: T.surface, boxShadow: T.shadowMd, border: `1px solid ${T.border}` }}>
         <label style={{ ...styles.label, color: T.text }}>Week Start</label>
-        <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="date" name="weekStart" value={form.weekStart} onChange={handleChange} required />
+        <input className="form-field" style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="date" name="weekStart" value={form.weekStart} onChange={handleChange} required />
 
         <label style={{ ...styles.label, color: T.text }}>Week End</label>
-        <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="date" name="weekEnd" value={form.weekEnd} onChange={handleChange} required />
+        <input className="form-field" style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="date" name="weekEnd" value={form.weekEnd} onChange={handleChange} required />
 
         <label style={{ ...styles.label, color: T.text }}>Project / Category</label>
-        <select style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="projectId" value={form.projectId} onChange={handleChange} required>
+        <select className="form-field" style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="projectId" value={form.projectId} onChange={handleChange} required>
           <option value="">Select a project</option>
           {projects.map(p => <option key={p._id} value={p._id}>{p.name}</option>)}
         </select>
 
         <label style={{ ...styles.label, color: T.text }}>Tasks Completed</label>
-        <textarea style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="tasksCompleted" value={form.tasksCompleted} onChange={handleChange} placeholder="What did you complete this week?" required />
+        <textarea className="form-field" style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="tasksCompleted" value={form.tasksCompleted} onChange={handleChange} placeholder="What did you complete this week?" required />
 
         <label style={{ ...styles.label, color: T.text }}>Tasks Planned for Next Week</label>
-        <textarea style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="tasksPlanned" value={form.tasksPlanned} onChange={handleChange} placeholder="What do you plan to work on next week?" required />
+        <textarea className="form-field" style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="tasksPlanned" value={form.tasksPlanned} onChange={handleChange} placeholder="What do you plan to work on next week?" required />
 
         <label style={{ ...styles.label, color: T.text }}>Blockers / Challenges</label>
-        <textarea style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="blockers" value={form.blockers} onChange={handleChange} placeholder="Any blockers? (optional)" />
+        <textarea className="form-field" style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="blockers" value={form.blockers} onChange={handleChange} placeholder="Any blockers? (optional)" />
 
         <label style={{ ...styles.label, color: T.text }}>Hours Worked (optional)</label>
-        <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="number" name="hoursWorked" value={form.hoursWorked} onChange={handleChange} min="0" placeholder="e.g. 40" />
+        <input className="form-field" style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="number" name="hoursWorked" value={form.hoursWorked} onChange={handleChange} min="0" placeholder="e.g. 40" />
 
         <label style={{ ...styles.label, color: T.text }}>Notes / Links (optional)</label>
-        <textarea style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="notes" value={form.notes} onChange={handleChange} placeholder="Any additional notes or links" />
+        <textarea className="form-field" style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="notes" value={form.notes} onChange={handleChange} placeholder="Any additional notes or links" />
 
         <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-          <button style={{ ...styles.btnPrimary, background: T.primary }} type="submit" disabled={loading}>
+          <button className="animated-button" style={{ ...styles.btnPrimary, background: T.primary }} type="submit" disabled={loading}>
             {loading ? 'Saving...' : 'Save as Draft'}
           </button>
-          <button style={{ ...styles.btnSecondary, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="button" onClick={() => navigate('/my-reports')}>
+          <button className="animated-button" style={{ ...styles.btnSecondary, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="button" onClick={() => navigate('/my-reports')}>
             Cancel
           </button>
         </div>

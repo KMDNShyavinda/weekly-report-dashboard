@@ -39,16 +39,46 @@ button {
   }
 }
 
+.animated-button,
+.animated-link {
+  transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1), background-color 180ms ease, color 180ms ease;
+  will-change: transform;
+}
+
+.animated-button:hover,
+.animated-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.16);
+}
+
+.animated-button:active,
+.animated-link:active {
+  transform: scale(0.97);
+}
+
+.animated-button:focus-visible,
+.animated-link:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
 .dashboard-shell {
   animation: dashboard-fade-in 400ms ease;
 }
 
 .dashboard-card {
   transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+  transform-origin: center;
 }
 
 .dashboard-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.dashboard-card:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(79, 70, 229, 0.12);
 }
 
 .dashboard-pill {
@@ -57,4 +87,25 @@ button {
 
 .dashboard-pill:hover {
   transform: translateY(-2px);
+}
+
+.chart-shell {
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.chart-shell:hover {
+  transform: translateY(-2px);
+}
+
+.form-field {
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.form-field:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.form-field:hover {
+  border-color: rgba(79, 70, 229, 0.35);
 }
