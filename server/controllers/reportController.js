@@ -1,5 +1,7 @@
 const Report = require('../models/Report');
 
+const getReviewStatus = (report) => report.reviewStatus || (report.status === 'submitted' ? 'pending' : report.status);
+
 // POST /api/reports — create draft
 const createReport = async (req, res) => {
   try {
@@ -55,6 +57,48 @@ const getMyReports = async (req, res) => {
   }
 };
 
+// GET /api/reports/admin-review — all reports for admin review
+const getAdminReviewReports = async (req, res) => {
+  try {
+    const reports = await Report.find()
+      .populate('userId', 'name email')
+      .populate('projectId', 'name')
+      .sort({ createdAt: -1 });
+
+    const payload = reports.map((report) => ({
+      ...report.toObject(),
+      reviewStatus: getReviewStatus(report)
+    }));
+
+    res.json(payload);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// PUT /api/reports/:id/review — update admin review state
+const updateReportReview = async (req, res) => {
+  try {
+    const report = await Report.findById(req.params.id);
+    if (!report) return res.status(404).json({ message: 'Report not found' });
+
+    const { reviewStatus, reviewNotes, internalNotes, feedbackForClient } = req.body;
+    if (reviewStatus) report.reviewStatus = reviewStatus;
+    if (reviewNotes !== undefined) report.reviewNotes = reviewNotes;
+    if (internalNotes !== undefined) report.internalNotes = internalNotes;
+    if (feedbackForClient !== undefined) report.feedbackForClient = feedbackForClient;
+
+    if (reviewStatus === 'approved' || reviewStatus === 'rejected' || reviewStatus === 'needs_revision') {
+      report.status = reviewStatus;
+    }
+
+    await report.save();
+    res.json({ ...report.toObject(), reviewStatus: getReviewStatus(report) });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // GET /api/reports — all reports (manager only), with filters
 const getAllReports = async (req, res) => {
   try {
@@ -80,4 +124,4 @@ const getAllReports = async (req, res) => {
   }
 };
 
-module.exports = { createReport, updateReport, submitReport, getMyReports, getAllReports };
+module.exports = { createReport, updateReport, submitReport, getMyReports, getAllReports, getAdminReviewReports, updateReportReview };

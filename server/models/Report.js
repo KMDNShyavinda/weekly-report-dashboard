@@ -42,8 +42,34 @@ const reportSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['draft', 'submitted', 'late'],
+    enum: ['draft', 'submitted', 'late', 'approved', 'rejected', 'needs_revision'],
     default: 'draft'
+  },
+  reviewStatus: {
+    type: String,
+    enum: ['pending', 'under_review', 'approved', 'rejected', 'needs_revision'],
+    default: 'pending'
+  },
+  reviewNotes: {
+    type: String,
+    default: ''
+  },
+  internalNotes: {
+    type: String,
+    default: ''
+  },
+  feedbackForClient: {
+    type: String,
+    default: ''
+  },
+  priority: {
+    type: String,
+    enum: ['low', 'medium', 'high'],
+    default: 'medium'
+  },
+  timeline: {
+    type: [{ title: String, detail: String, actor: String, createdAt: Date }],
+    default: []
   },
   submittedAt: {
     type: Date,

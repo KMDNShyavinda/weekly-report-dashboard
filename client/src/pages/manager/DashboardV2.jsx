@@ -164,6 +164,11 @@ export default function DashboardV2() {
             <Link className="animated-link" to="/projects" style={{ border: `1px solid ${theme.border}`, background: theme.surface, color: theme.text, borderRadius: '999px', padding: '0.65rem 0.95rem', boxShadow: theme.shadow }}>
               Projects
             </Link>
+            {user?.role === 'admin' ? (
+              <Link className="animated-link" to="/admin/report-reviews" style={{ border: `1px solid ${theme.border}`, background: theme.surface, color: theme.text, borderRadius: '999px', padding: '0.65rem 0.95rem', boxShadow: theme.shadow }}>
+                Report Reviews
+              </Link>
+            ) : null}
             <button className="animated-button" onClick={logout} style={{ border: 'none', background: theme.gradient, color: '#fff', borderRadius: '999px', padding: '0.65rem 0.95rem', cursor: 'pointer', boxShadow: theme.shadow }}>
               Logout
             </button>

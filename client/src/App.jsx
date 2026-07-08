@@ -7,6 +7,7 @@ import ReportForm  from './pages/member/ReportForm';
 import DashboardV2 from './pages/manager/DashboardV2';
 import TeamReports from './pages/manager/TeamReports';
 import Projects    from './pages/manager/Projects';
+import ReportReviews from './pages/manager/ReportReviews';
 import PrivateRoute from './routes/PrivateRoute';
 import RoleRoute    from './routes/RoleRoute';
 import { ThemeProvider } from './context/ThemeContext';
@@ -27,12 +28,16 @@ export default function App() {
           <Route path="/reports/edit/:id" element={<ReportForm />} />
         </Route>
 
-        {/* Manager routes */}
+        {/* Manager/admin routes */}
         <Route element={<PrivateRoute />}>
-          <Route element={<RoleRoute role="manager" />}>
-            <Route path="/dashboard"    element={<DashboardV2 />} />
-            <Route path="/team-reports" element={<TeamReports />} />
-            <Route path="/projects"     element={<Projects />} />
+          <Route element={<RoleRoute roles={['manager', 'admin']} />}>
+            <Route path="/dashboard"              element={<DashboardV2 />} />
+            <Route path="/team-reports"           element={<TeamReports />} />
+            <Route path="/projects"               element={<Projects />} />
+          </Route>
+          <Route element={<RoleRoute role="admin" />}>
+            <Route path="/admin/report-reviews"   element={<ReportReviews />} />
+            <Route path="/admin/report-reviews/:id" element={<ReportReviews />} />
           </Route>
         </Route>
 

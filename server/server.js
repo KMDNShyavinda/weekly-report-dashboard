@@ -3,11 +3,31 @@ const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const User = require('./models/User');
 
 dotenv.config();
 
 // Connect to MongoDB
 connectDB();
+
+const ensureDemoAdmin = async () => {
+  try {
+    const existingAdmin = await User.findOne({ email: 'admin@example.com' });
+    if (!existingAdmin) {
+      await User.create({
+        name: 'Demo Admin',
+        email: 'admin@example.com',
+        passwordHash: 'Admin123!',
+        role: 'admin'
+      });
+      console.log('Demo admin account created');
+    }
+  } catch (error) {
+    console.error('Unable to create demo admin account:', error.message);
+  }
+};
+
+ensureDemoAdmin();
 
 const app = express();
 

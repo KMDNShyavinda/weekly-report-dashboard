@@ -24,7 +24,8 @@ export default function Login() {
     try {
       const res = await loginUser(form);
       login(res.data.user, res.data.token);
-      navigate(res.data.user.role === 'manager' ? '/dashboard' : '/my-reports');
+      const targetRoute = res.data.user.role === 'admin' || res.data.user.role === 'manager' ? '/dashboard' : '/my-reports';
+      navigate(targetRoute);
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
