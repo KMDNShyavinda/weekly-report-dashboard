@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProjects, createProject, updateProject, deleteProject } from '../../api/projectApi';
+import { useTheme } from '../../context/ThemeContext';
+import { getTheme } from '../../styles/theme-complete';
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [form, setForm]         = useState({ name: '', description: '' });
   const [editId, setEditId]     = useState(null);
   const [error, setError]       = useState('');
+  const { dark } = useTheme();
+  const T = getTheme(dark);
 
   useEffect(() => { getProjects().then(r => setProjects(r.data)); }, []);
 
@@ -35,28 +39,28 @@ export default function Projects() {
   };
 
   return (
-    <div style={styles.page}>
+    <div style={{ ...styles.page, background: T.bg, color: T.text, minHeight: '100vh' }}>
       <div style={styles.header}>
-        <h2>Manage Projects</h2>
-        <Link to="/dashboard" style={styles.back}>← Dashboard</Link>
+        <h2 style={{ color: T.text }}>Manage Projects</h2>
+        <Link to="/dashboard" style={{ ...styles.back, color: T.primary }}>← Dashboard</Link>
       </div>
 
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <h4 style={{ marginBottom: '1rem' }}>{editId ? 'Edit Project' : 'Add New Project'}</h4>
-        {error && <p style={styles.error}>{error}</p>}
-        <input style={styles.input} placeholder="Project name" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required />
-        <input style={styles.input} placeholder="Description (optional)" value={form.description} onChange={e => setForm({...form, description: e.target.value})} />
-        <button style={styles.btn} type="submit">{editId ? 'Update' : 'Add Project'}</button>
-        {editId && <button style={styles.cancelBtn} type="button" onClick={() => { setEditId(null); setForm({ name: '', description: '' }); }}>Cancel</button>}
+      <form onSubmit={handleSubmit} style={{ ...styles.form, background: T.surface, boxShadow: T.shadowMd, border: `1px solid ${T.border}` }}>
+        <h4 style={{ marginBottom: '1rem', color: T.text }}>{editId ? 'Edit Project' : 'Add New Project'}</h4>
+        {error && <p style={{ ...styles.error, color: T.danger }}>{error}</p>}
+        <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} placeholder="Project name" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required />
+        <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} placeholder="Description (optional)" value={form.description} onChange={e => setForm({...form, description: e.target.value})} />
+        <button style={{ ...styles.btn, background: T.primary }} type="submit">{editId ? 'Update' : 'Add Project'}</button>
+        {editId && <button style={{ ...styles.cancelBtn, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="button" onClick={() => { setEditId(null); setForm({ name: '', description: '' }); }}>Cancel</button>}
       </form>
 
       <div style={styles.list}>
         {projects.map(p => (
-          <div key={p._id} style={styles.item}>
-            <div><strong>{p.name}</strong><p style={{ fontSize: '13px', color: '#666' }}>{p.description}</p></div>
+          <div key={p._id} style={{ ...styles.item, background: T.surface, boxShadow: T.shadowMd, border: `1px solid ${T.border}` }}>
+            <div><strong style={{ color: T.text }}>{p.name}</strong><p style={{ fontSize: '13px', color: T.muted }}>{p.description}</p></div>
             <div>
-              <button style={styles.editBtn}   onClick={() => handleEdit(p)}>Edit</button>
-              <button style={styles.deleteBtn} onClick={() => handleDelete(p._id)}>Delete</button>
+              <button style={{ ...styles.editBtn, background: T.primarySoft || T.surface2, color: T.primary }}   onClick={() => handleEdit(p)}>Edit</button>
+              <button style={{ ...styles.deleteBtn, background: `${T.danger}20`, color: T.danger }} onClick={() => handleDelete(p._id)}>Delete</button>
             </div>
           </div>
         ))}

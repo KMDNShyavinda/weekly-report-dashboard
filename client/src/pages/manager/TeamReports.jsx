@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllReports } from '../../api/reportApi';
 import { getProjects }   from '../../api/projectApi';
+import { useTheme } from '../../context/ThemeContext';
+import { getTheme } from '../../styles/theme-complete';
 
 export default function TeamReports() {
   const [reports, setReports]   = useState([]);
   const [projects, setProjects] = useState([]);
   const [filters, setFilters]   = useState({ projectId: '', startDate: '', endDate: '' });
   const [loading, setLoading]   = useState(true);
+  const { dark } = useTheme();
+  const T = getTheme(dark);
 
   const fetchReports = async () => {
     setLoading(true);
@@ -25,37 +29,37 @@ export default function TeamReports() {
   const statusColor = { draft: '#f59e0b', submitted: '#10b981', late: '#ef4444', pending: '#9ca3af' };
 
   return (
-    <div style={styles.page}>
+    <div style={{ ...styles.page, background: T.bg, color: T.text, minHeight: '100vh' }}>
       <div style={styles.header}>
-        <h2>Team Reports</h2>
-        <Link to="/dashboard" style={styles.back}>← Dashboard</Link>
+        <h2 style={{ color: T.text }}>Team Reports</h2>
+        <Link to="/dashboard" style={{ ...styles.back, color: T.primary }}>← Dashboard</Link>
       </div>
 
       {/* Filters */}
       <div style={styles.filters}>
-        <select style={styles.input} value={filters.projectId} onChange={e => setFilters({...filters, projectId: e.target.value})}>
+        <select style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} value={filters.projectId} onChange={e => setFilters({...filters, projectId: e.target.value})}>
           <option value="">All Projects</option>
           {projects.map(p => <option key={p._id} value={p._id}>{p.name}</option>)}
         </select>
-        <input style={styles.input} type="date" value={filters.startDate} onChange={e => setFilters({...filters, startDate: e.target.value})} placeholder="Start Date" />
-        <input style={styles.input} type="date" value={filters.endDate}   onChange={e => setFilters({...filters, endDate:   e.target.value})} placeholder="End Date" />
-        <button style={styles.btn} onClick={fetchReports}>Filter</button>
+        <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="date" value={filters.startDate} onChange={e => setFilters({...filters, startDate: e.target.value})} placeholder="Start Date" />
+        <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="date" value={filters.endDate}   onChange={e => setFilters({...filters, endDate:   e.target.value})} placeholder="End Date" />
+        <button style={{ ...styles.btn, background: T.primary }} onClick={fetchReports}>Filter</button>
       </div>
 
-      {loading ? <p>Loading...</p> : (
-        <table style={styles.table}>
+      {loading ? <p style={{ color: T.muted }}>Loading...</p> : (
+        <table style={{ ...styles.table, background: T.surface, boxShadow: T.shadowMd, border: `1px solid ${T.border}` }}>
           <thead>
             <tr><th>Member</th><th>Week</th><th>Project</th><th>Status</th><th>Hours</th><th>Blockers</th></tr>
           </thead>
           <tbody>
             {reports.map(r => (
               <tr key={r._id}>
-                <td>{r.userId?.name}</td>
-                <td>{new Date(r.weekStart).toLocaleDateString()}</td>
-                <td>{r.projectId?.name}</td>
+                <td style={{ color: T.text }}>{r.userId?.name}</td>
+                <td style={{ color: T.text }}>{new Date(r.weekStart).toLocaleDateString()}</td>
+                <td style={{ color: T.text }}>{r.projectId?.name}</td>
                 <td><span style={{ ...styles.badge, background: statusColor[r.status] }}>{r.status}</span></td>
-                <td>{r.hoursWorked || '—'}</td>
-                <td>{r.blockers || '—'}</td>
+                <td style={{ color: T.text }}>{r.hoursWorked || '—'}</td>
+                <td style={{ color: T.text }}>{r.blockers || '—'}</td>
               </tr>
             ))}
           </tbody>

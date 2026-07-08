@@ -4,15 +4,17 @@ import Login       from './pages/auth/Login';
 import Register    from './pages/auth/Register';
 import MyReports   from './pages/member/MyReports';
 import ReportForm  from './pages/member/ReportForm';
-import Dashboard   from './pages/manager/Dashboard';
+import DashboardV2 from './pages/manager/DashboardV2';
 import TeamReports from './pages/manager/TeamReports';
 import Projects    from './pages/manager/Projects';
 import PrivateRoute from './routes/PrivateRoute';
 import RoleRoute    from './routes/RoleRoute';
+import { ThemeProvider } from './context/ThemeContext';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
       <Routes>
         {/* Public routes */}
         <Route path="/login"    element={<Login />} />
@@ -28,7 +30,7 @@ export default function App() {
         {/* Manager routes */}
         <Route element={<PrivateRoute />}>
           <Route element={<RoleRoute role="manager" />}>
-            <Route path="/dashboard"    element={<Dashboard />} />
+            <Route path="/dashboard"    element={<DashboardV2 />} />
             <Route path="/team-reports" element={<TeamReports />} />
             <Route path="/projects"     element={<Projects />} />
           </Route>
@@ -38,5 +40,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
+    </ThemeProvider>
   );
 }

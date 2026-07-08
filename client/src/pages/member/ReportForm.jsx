@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createReport, updateReport, getMyReports } from '../../api/reportApi';
 import { getProjects } from '../../api/projectApi';
+import { useTheme } from '../../context/ThemeContext';
+import { getTheme } from '../../styles/theme-complete';
 
 const INITIAL = { weekStart: '', weekEnd: '', projectId: '', tasksCompleted: '', tasksPlanned: '', blockers: '', hoursWorked: '', notes: '' };
 
@@ -12,6 +14,8 @@ export default function ReportForm() {
   const [loading, setLoading]   = useState(false);
   const navigate = useNavigate();
   const { id }   = useParams();
+  const { dark } = useTheme();
+  const T = getTheme(dark);
 
   useEffect(() => {
     getProjects().then(res => setProjects(res.data));
@@ -50,42 +54,42 @@ export default function ReportForm() {
   };
 
   return (
-    <div style={styles.page}>
-      <h2 style={{ marginBottom: '1.5rem' }}>{id ? 'Edit Report' : 'New Weekly Report'}</h2>
-      {error && <p style={styles.error}>{error}</p>}
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <label style={styles.label}>Week Start</label>
-        <input style={styles.input} type="date" name="weekStart" value={form.weekStart} onChange={handleChange} required />
+    <div style={{ ...styles.page, background: T.bg, color: T.text, minHeight: '100vh' }}>
+      <h2 style={{ marginBottom: '1.5rem', color: T.text }}>{id ? 'Edit Report' : 'New Weekly Report'}</h2>
+      {error && <p style={{ ...styles.error, color: T.danger }}>{error}</p>}
+      <form onSubmit={handleSubmit} style={{ ...styles.form, background: T.surface, boxShadow: T.shadowMd, border: `1px solid ${T.border}` }}>
+        <label style={{ ...styles.label, color: T.text }}>Week Start</label>
+        <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="date" name="weekStart" value={form.weekStart} onChange={handleChange} required />
 
-        <label style={styles.label}>Week End</label>
-        <input style={styles.input} type="date" name="weekEnd" value={form.weekEnd} onChange={handleChange} required />
+        <label style={{ ...styles.label, color: T.text }}>Week End</label>
+        <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="date" name="weekEnd" value={form.weekEnd} onChange={handleChange} required />
 
-        <label style={styles.label}>Project / Category</label>
-        <select style={styles.input} name="projectId" value={form.projectId} onChange={handleChange} required>
+        <label style={{ ...styles.label, color: T.text }}>Project / Category</label>
+        <select style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="projectId" value={form.projectId} onChange={handleChange} required>
           <option value="">Select a project</option>
           {projects.map(p => <option key={p._id} value={p._id}>{p.name}</option>)}
         </select>
 
-        <label style={styles.label}>Tasks Completed</label>
-        <textarea style={styles.textarea} name="tasksCompleted" value={form.tasksCompleted} onChange={handleChange} placeholder="What did you complete this week?" required />
+        <label style={{ ...styles.label, color: T.text }}>Tasks Completed</label>
+        <textarea style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="tasksCompleted" value={form.tasksCompleted} onChange={handleChange} placeholder="What did you complete this week?" required />
 
-        <label style={styles.label}>Tasks Planned for Next Week</label>
-        <textarea style={styles.textarea} name="tasksPlanned" value={form.tasksPlanned} onChange={handleChange} placeholder="What do you plan to work on next week?" required />
+        <label style={{ ...styles.label, color: T.text }}>Tasks Planned for Next Week</label>
+        <textarea style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="tasksPlanned" value={form.tasksPlanned} onChange={handleChange} placeholder="What do you plan to work on next week?" required />
 
-        <label style={styles.label}>Blockers / Challenges</label>
-        <textarea style={styles.textarea} name="blockers" value={form.blockers} onChange={handleChange} placeholder="Any blockers? (optional)" />
+        <label style={{ ...styles.label, color: T.text }}>Blockers / Challenges</label>
+        <textarea style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="blockers" value={form.blockers} onChange={handleChange} placeholder="Any blockers? (optional)" />
 
-        <label style={styles.label}>Hours Worked (optional)</label>
-        <input style={styles.input} type="number" name="hoursWorked" value={form.hoursWorked} onChange={handleChange} min="0" placeholder="e.g. 40" />
+        <label style={{ ...styles.label, color: T.text }}>Hours Worked (optional)</label>
+        <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="number" name="hoursWorked" value={form.hoursWorked} onChange={handleChange} min="0" placeholder="e.g. 40" />
 
-        <label style={styles.label}>Notes / Links (optional)</label>
-        <textarea style={styles.textarea} name="notes" value={form.notes} onChange={handleChange} placeholder="Any additional notes or links" />
+        <label style={{ ...styles.label, color: T.text }}>Notes / Links (optional)</label>
+        <textarea style={{ ...styles.textarea, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="notes" value={form.notes} onChange={handleChange} placeholder="Any additional notes or links" />
 
         <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-          <button style={styles.btnPrimary} type="submit" disabled={loading}>
+          <button style={{ ...styles.btnPrimary, background: T.primary }} type="submit" disabled={loading}>
             {loading ? 'Saving...' : 'Save as Draft'}
           </button>
-          <button style={styles.btnSecondary} type="button" onClick={() => navigate('/my-reports')}>
+          <button style={{ ...styles.btnSecondary, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} type="button" onClick={() => navigate('/my-reports')}>
             Cancel
           </button>
         </div>

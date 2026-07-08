@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../../api/authApi';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
+import { getTheme } from '../../styles/theme-complete';
+import ThemeSwitcher from '../../components/ThemeSwitcher';
 
 export default function Login() {
   const [form, setForm]     = useState({ email: '', password: '' });
@@ -9,6 +12,8 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { login }   = useAuth();
   const navigate    = useNavigate();
+  const { dark } = useTheme();
+  const T = getTheme(dark);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -28,18 +33,21 @@ export default function Login() {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h2 style={styles.title}>Login</h2>
+    <div style={{ ...styles.container, background: T.bg }}>
+      <div style={{ ...styles.card, background: T.surface, boxShadow: T.shadowMd, border: `1px solid ${T.border}` }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.5rem' }}>
+          <ThemeSwitcher />
+        </div>
+        <h2 style={{ ...styles.title, color: T.text }}>Login</h2>
         {error && <p style={styles.error}>{error}</p>}
         <form onSubmit={handleSubmit}>
-          <input style={styles.input} name="email"    type="email"    placeholder="Email"    value={form.email}    onChange={handleChange} required />
-          <input style={styles.input} name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
-          <button style={styles.button} type="submit" disabled={loading}>
+          <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="email"    type="email"    placeholder="Email"    value={form.email}    onChange={handleChange} required />
+          <input style={{ ...styles.input, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }} name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
+          <button style={{ ...styles.button, background: T.primary }} type="submit" disabled={loading}>
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-        <p style={styles.link}>Don't have an account? <Link to="/register">Register</Link></p>
+        <p style={{ ...styles.link, color: T.muted }}>Don't have an account? <Link to="/register" style={{ color: T.primary }}>Register</Link></p>
       </div>
     </div>
   );

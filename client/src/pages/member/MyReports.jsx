@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getMyReports, submitReport } from '../../api/reportApi';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
+import { getTheme } from '../../styles/theme-complete';
 
 export default function MyReports() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user, logout } = useAuth();
+  const { dark } = useTheme();
+  const T = getTheme(dark);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,19 +28,19 @@ export default function MyReports() {
   const statusColor = { draft: '#f59e0b', submitted: '#10b981', late: '#ef4444' };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.header}>
-        <h2>My Reports — {user?.name}</h2>
+    <div style={{ ...styles.page, background: T.bg, color: T.text, minHeight: '100vh' }}>
+      <div style={{ ...styles.header, color: T.text }}>
+        <h2 style={{ color: T.text }}>My Reports — {user?.name}</h2>
         <div>
-          <Link to="/reports/new" style={styles.btnPrimary}>+ New Report</Link>
-          <button onClick={logout} style={styles.btnSecondary}>Logout</button>
+          <Link to="/reports/new" style={{ ...styles.btnPrimary, background: T.primary }}>+ New Report</Link>
+          <button onClick={logout} style={{ ...styles.btnSecondary, background: T.surface2, color: T.text, border: `1px solid ${T.border}` }}>Logout</button>
         </div>
       </div>
 
-      {loading ? <p>Loading...</p> : reports.length === 0 ? (
-        <p>No reports yet. <Link to="/reports/new">Create your first report.</Link></p>
+      {loading ? <p style={{ color: T.muted }}>Loading...</p> : reports.length === 0 ? (
+        <p style={{ color: T.muted }}>No reports yet. <Link to="/reports/new" style={{ color: T.primary }}>Create your first report.</Link></p>
       ) : (
-        <table style={styles.table}>
+        <table style={{ ...styles.table, background: T.surface, boxShadow: T.shadowMd, border: `1px solid ${T.border}` }}>
           <thead>
             <tr>
               <th>Week</th><th>Project</th><th>Status</th><th>Hours</th><th>Actions</th>
@@ -45,14 +49,14 @@ export default function MyReports() {
           <tbody>
             {reports.map(r => (
               <tr key={r._id}>
-                <td>{new Date(r.weekStart).toLocaleDateString()} – {new Date(r.weekEnd).toLocaleDateString()}</td>
-                <td>{r.projectId?.name || '—'}</td>
+                <td style={{ color: T.text }}>{new Date(r.weekStart).toLocaleDateString()} – {new Date(r.weekEnd).toLocaleDateString()}</td>
+                <td style={{ color: T.text }}>{r.projectId?.name || '—'}</td>
                 <td><span style={{ ...styles.badge, background: statusColor[r.status] }}>{r.status}</span></td>
-                <td>{r.hoursWorked || '—'}</td>
+                <td style={{ color: T.text }}>{r.hoursWorked || '—'}</td>
                 <td>
-                  <Link to={`/reports/edit/${r._id}`} style={styles.linkBtn}>Edit</Link>
+                  <Link to={`/reports/edit/${r._id}`} style={{ marginRight: '0.5rem', color: T.primary }}>Edit</Link>
                   {r.status === 'draft' && (
-                    <button onClick={() => handleSubmit(r._id)} style={styles.submitBtn}>Submit</button>
+                    <button onClick={() => handleSubmit(r._id)} style={{ ...styles.submitBtn, background: T.success }}>Submit</button>
                   )}
                 </td>
               </tr>
