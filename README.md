@@ -59,6 +59,32 @@ PORT=5000
 
 ---
 
+## 5. AI Assistant (Optional Enhancement)
+
+This application includes an optional manager-facing AI assistant for conversational Q&A and team activity summaries.
+
+### Setup
+1. Add `GOOGLE_API_KEY` to `server/.env`.
+2. Restart the backend.
+
+Example `server/.env` additions:
+
+```
+GOOGLE_API_KEY=your_google_api_key_here
+```
+
+### How it works
+- The backend route `POST /api/assistant/message` is protected and available only to managers.
+- It collects recent report summaries from the review queue and sends them to Google Gemini as assistant context.
+- The assistant can answer manager questions about team work, blockers, workload imbalances, and report review status.
+
+### Data privacy notes
+- Only recent report summaries are sent to the model; no user passwords or auth tokens are included.
+- The assistant uses only report data already stored in the app and does not pull from external sources.
+- If the API key is missing, the assistant endpoint returns a clear error rather than attempting a request.
+
+---
+
 ## Roles
 - **Team Member** — can create, edit, and submit their own weekly reports
 - **Manager** — can view all reports, manage projects, and see dashboard analytics
